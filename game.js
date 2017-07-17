@@ -129,7 +129,7 @@ var mainState = {
 };
 
 
-var game = new Phaser.Game(400, 490);
+var game = new Phaser.Game(400, 490, "game_can");
 
 game.state.add('main', mainState); 
 

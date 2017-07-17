@@ -6,6 +6,7 @@ body{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+  justify-content: center;
 	background: linear-gradient(45deg,rgba(76, 175, 80, 0.78),rgba(139, 195, 74, 0.72),rgba(216, 218, 39, 0.83));
 }
 
