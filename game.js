@@ -13,7 +13,7 @@ var mainState = {
         
         game.stage.backgroundColor = '#71c5cf';
 
-        this.bg= game.add.tileSprite(0, 0, game.stage.bounds.width, game.stage.bounds.height, 'background');
+        this.bg= game.add.tileSprite(0, 0, game.width, game.height, 'background');
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
