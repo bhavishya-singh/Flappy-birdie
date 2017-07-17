@@ -35,6 +35,7 @@ var mainState = {
                         Phaser.Keyboard.SPACEBAR);
         spaceKey.onDown.add(this.jump, this);   
         this.score = 0;
+        game.input.onDown.add(doSomething, this);
         this.labelScore = game.add.text(20, 20, "0", { font: "30px Arial", fill: "#ffffff" });     
     },
 
@@ -49,6 +50,10 @@ var mainState = {
         }
 
         game.physics.arcade.overlap(this.bird, this.pipes, this.hitPipe, null, this);
+    },
+
+    doSomething: function(pointer){
+        this.jump();
     },
 
     jump: function() {
