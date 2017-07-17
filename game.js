@@ -3,6 +3,8 @@ var mainState = {
         
         game.load.image('bird', 'assets/bird.png'); 
         game.load.image('pipe', 'assets/pipe.png');
+        game.load.audio('jumpsound', 'assets/jump.wav'); 
+
 
     },
 
@@ -12,6 +14,8 @@ var mainState = {
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
+        this.jumpSound = game.add.audio('jumpsound'); 
+
         this.bird = game.add.sprite(100, 245, 'bird');
 
         this.pipes = game.add.group(); 
@@ -19,6 +23,8 @@ var mainState = {
         game.physics.arcade.enable(this.bird);
 
         this.bird.body.gravity.y = 1000;  
+
+        this.bird.anchor.setTo(-0.2, 0.5); 
 
         this.timer = game.time.events.loop(1500, this.addRowOfPipes, this); 
 
@@ -35,12 +41,29 @@ var mainState = {
            this.restartGame();   
         }
 
-        game.physics.arcade.overlap(this.bird, this.pipes, this.restartGame, null, this);
+        if (this.bird.angle < 20){
+            this.bird.angle += 1; 
+        }
+
+        game.physics.arcade.overlap(this.bird, this.pipes, this.hitPipe, null, this);
     },
 
     jump: function() {
+
+        if (this.bird.alive == false){
+            return;  
+        }
+
+        this.jumpSound.play(); 
         
         this.bird.body.velocity.y = -350;
+
+        var animation = game.add.tween(this.bird);
+
+        animation.to({angle: -20}, 100);
+
+        animation.start(); 
+
     },
 
     restartGame: function() {
@@ -77,10 +100,27 @@ var mainState = {
         }
 
     },
+
+    hitPipe: function() {
+        // If the bird has already hit a pipe, do nothing
+        // It means the bird is already falling off the screen
+        if (this.bird.alive == false)
+            return;
+
+        // Set the alive property of the bird to false
+        this.bird.alive = false;
+
+        // Prevent new pipes from appearing
+        game.time.events.remove(this.timer);
+
+        // Go through all the pipes, and stop their movement
+        this.pipes.forEach(function(p){
+            p.body.velocity.x = 0;
+        }, this);
+    }, 
 };
 
 
-// Initialize Phaser, and create a 400px by 490px game
 var game = new Phaser.Game(400, 490);
 
 // Add the 'mainState' and call it 'main'
