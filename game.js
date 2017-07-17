@@ -35,7 +35,7 @@ var mainState = {
                         Phaser.Keyboard.SPACEBAR);
         spaceKey.onDown.add(this.jump, this);   
         this.score = 0;
-        game.input.onDown.add(doSomething, this);
+        game.input.onDown.add(this.doSomething, this);
         this.labelScore = game.add.text(20, 20, "0", { font: "30px Arial", fill: "#ffffff" });     
     },
 
@@ -131,8 +131,15 @@ var mainState = {
 
 var game = new Phaser.Game(400, 490);
 
-// Add the 'mainState' and call it 'main'
 game.state.add('main', mainState); 
 
-// Start the state to actually start the game
-game.state.start('main');
+
+$(document).ready(function(){
+    var play_button = document.getElementById("play_button");
+    if(play_button){
+    play_button.addEventListener('click',function(event){
+        $('.container').slideUp();
+        game.state.start('main');
+  });
+}
+});
