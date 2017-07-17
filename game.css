@@ -81,14 +81,13 @@ a{
 }
 
 
-canvas
-{
+.game-area{
     position:relative;
     -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
        -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
             box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
-canvas:before, canvas:after
+.game-area:before, .game-area:after
 {
   content:"";
     position:absolute;
@@ -103,7 +102,7 @@ canvas:before, canvas:after
     -moz-border-radius:100px / 10px;
     border-radius:100px / 10px;
 }
-canvas:after
+.game-area:after
 {
   right:10px;
     left:auto;
